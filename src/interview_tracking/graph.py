@@ -1,13 +1,14 @@
 from typing import List
-from types import Application
+
+from interview_tracking.types import Application
 
 
 class Graph:
-    def __init__(self, storage: dict[str, set[str]] = {}) -> None:
+    def __init__(self, storage: dict[str, List[str]] = {}) -> None:
         self.__storage = storage
 
     def add_edge(self, source: str, target: str):
-        self.__storage.setdefault(source, set()).add(target)
+        self.__storage.setdefault(source, []).append(target)
         return self
 
     def remove_edge(self, source: str, target: str):
@@ -28,6 +29,11 @@ class Graph:
 
     @staticmethod
     def fromJson(applications: List[Application]):
-        storage = {}
+        g = Graph()
         for a in applications:
-            print(a)
+            for i in range(len(a["history"]) - 1):
+                g.add_edge(a["history"][i], a["history"][i + 1])
+        return g
+
+    def __repr__(self) -> str:
+        return self.__storage.__str__()
