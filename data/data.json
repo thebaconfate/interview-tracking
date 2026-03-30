@@ -1,0 +1,42 @@
+[
+    {
+        "company": "TMC",
+        "role": "SWE graduate",
+        "history": [
+            "Applied",
+            "Interview 1",
+            "Interview 2"
+        ]
+    },
+    {
+        "company": "Toqua",
+        "role": "SWE",
+        "history": [
+            "Applied",
+            "Ghosted"
+        ]
+    },
+    {
+        "company": "Kwery",
+        "role": "SWE",
+        "history": [
+            "Applied",
+            "Rejected"
+        ]
+    },
+    {
+        "company": "Justified",
+        "role": "Full-stack SWE",
+        "history": [
+            "Applied"
+        ]
+    },
+    {
+        "company": "Delaware",
+        "role": "Junior Edge Technology Engineer",
+        "history": [
+            "Applied",
+            "In progress"
+        ]
+    }
+]
