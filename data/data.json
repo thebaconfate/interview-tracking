@@ -38,5 +38,13 @@
             "Applied",
             "In progress"
         ]
+    },
+    {
+        "company": "Inthys",
+        "role": "Junior SWE Consultant",
+        "history": [
+            "Applied",
+            "Interview 1"
+        ]
     }
 ]
