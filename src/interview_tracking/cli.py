@@ -1,9 +1,9 @@
-from typer import Typer
+import typer
 from .persistance import *
 from .types import DEFAULT_APPLICATION
 from .subcommands import entry_app, stage_app
 
-app = Typer()
+app = typer.Typer()
 
 
 app.add_typer(entry_app, name="entry")

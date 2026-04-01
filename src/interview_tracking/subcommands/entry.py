@@ -1,19 +1,19 @@
 from typing import List
-from typer import Option, Typer, echo, prompt
+import typer
 
 from interview_tracking.graph import WeightedDirectedGraph
 from interview_tracking.persistance import load_data, save_data
 from interview_tracking.types import Application, Applications
 
 
-entry_app = Typer()
+entry_app = typer.Typer()
 
 
 @entry_app.command("new")
 def new_entry(
     company: str,
     role: str,
-    init_status: str = Option(
+    init_status: str = typer.Option(
         "Interested",
         "--init-status",
         "-s",
@@ -28,7 +28,7 @@ def new_entry(
         {"company": company, "role": role, "history": [init_status], "open": True}
     )
     save_data(data)
-    echo(f"Added entry: {company} - {role}, history: {init_status}")
+    typer.echo(f"Added entry: {company} - {role}, history: {init_status}")
 
 
 @entry_app.command("list")
@@ -38,7 +38,7 @@ def list_applications():
     """
     data: Applications = load_data()
     for i, application in enumerate(data):
-        echo(f"{i} {application['company']} - {application['role']}")
+        typer.echo(f"{i} {application['company']} - {application['role']}")
 
 
 @entry_app.command("list-open")
@@ -50,7 +50,7 @@ def list_ongoing_applications():
     for i, application in enumerate(data):
         if not application["open"]:
             continue
-        echo(f"{i} {application['company']} - {application['role']}")
+        typer.echo(f"{i} {application['company']} - {application['role']}")
 
 
 @entry_app.command("close")
@@ -61,11 +61,11 @@ def update_status():
     data: Applications = load_data()
     for i, application in enumerate(data):
         if application["open"]:
-            echo(f"{i} {application['company']} - {application['role']}")
-    idx = int(prompt("Pick an entry by number"))
+            typer.echo(f"{i} {application['company']} - {application['role']}")
+    idx = int(typer.prompt("Pick an entry by number"))
     data[idx]["open"] = False
     save_data(data)
-    echo(f"Closed application: {data[idx]['company']} - {data[idx]['role']}")
+    typer.echo(f"Closed application: {data[idx]['company']} - {data[idx]['role']}")
 
 
 @entry_app.command("sankey")
@@ -84,4 +84,4 @@ def sankey():
             g.add_edge(d["history"][0], "Awaiting response")
 
     g.sankey_diagram()
-    echo("Generated sankey diagram")
+    typer.echo("Generated sankey diagram")
