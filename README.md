@@ -4,13 +4,13 @@ A CLI tool to keep track of your interview process.
 
 # Installing
 
-This project uses poetry as the dependency manager. Consequently you should have
-poetry installed, if not install it through the instructions: [python-poetry](https://python-poetry.org/docs/#installation)
+This project uses uv as the dependency manager. Consequently you should have
+uv installed, if not install it through the instructions: [astral-uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 Afterwards it's sufficient to use
 
 ```bash
-poetry install
+uv sync
 ```
 
 # Usage
@@ -19,7 +19,7 @@ Prior to usage, make sure you're using the virtual environment that has the
 dependencies installed
 
 ```bash
-eval $(poetry env activate)
+source .venv/bin/activate
 ```
 
 Your terminal should prefix the current directory with the name of the virtual

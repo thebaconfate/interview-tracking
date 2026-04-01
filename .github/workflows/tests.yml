@@ -2,6 +2,8 @@ name: Run tests
 
 on:
   push:
+    paths-ignore:
+      - README.md
   pull_request:
     branches:
       - main
@@ -23,8 +25,10 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y pipx
-          pipx install poetry
+          curl -LsSf https://astral.sh/uv/install.sh | sh
           poetry install
 
       - name: Run tests
-        run: poetry run pytest
+        run: |
+          source .venv/bin/activate
+          uv run pytest
