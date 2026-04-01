@@ -1,7 +1,5 @@
 from functools import reduce
-from typing import Dict, List
-import json
-from interview_tracking.types import Application
+from typing import Dict
 from collections import Counter
 
 type Source = str
@@ -12,12 +10,16 @@ type Frequency = int
 class WeightedDirectedGraph:
     """Class to represent a weighted directed graph"""
 
-    def __init__(self, storage: Dict[Source, Dict[Target, Frequency]] = {}) -> None:
-        self.__storage: Dict[Source, Dict[Target, Frequency]] = storage
+    def __init__(
+        self, storage: Dict[Source, Dict[Target, Frequency]] | None = None
+    ) -> None:
+        self.__storage: Dict[Source, Dict[Target, Frequency]] = (
+            storage if storage is not None else {}
+        )
 
-    def add_edge(self, source: Source, target: Target):
+    def add_edge(self, source: Source, target: Target, weight: int = 1):
         self.__storage.setdefault(source, {}).setdefault(target, 0)
-        self.__storage[source][target] += 1
+        self.__storage[source][target] += weight
         return self
 
     def nodes(self):
@@ -28,6 +30,13 @@ class WeightedDirectedGraph:
                 set(),
             )
         )
+
+    def edges(self):
+        return [
+            (src, target, weight)
+            for src, targets in self.__storage.items()
+            for target, weight in targets.items()
+        ]
 
     def sankey_diagram(self):
         import plotly.graph_objects as go

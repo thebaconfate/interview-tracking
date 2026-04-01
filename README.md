@@ -29,6 +29,7 @@ Usage is straight forward. All commands are documented and can be polled trought
 the tool itself. The prefix to use the tracker will be 'Tracker'
 
 ```bash
-tracker --help #or
+tracker --help
+#or
 tracker [SUBCOMMAND] --help
 ```
