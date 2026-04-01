@@ -20,7 +20,7 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies
-        uses: run |
+        run: |
           sudo apt update
           sudo apt install pipx
           pipx ensurepath
