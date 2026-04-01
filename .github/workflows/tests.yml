@@ -29,6 +29,4 @@ jobs:
           uv sync
 
       - name: Run tests
-        run: |
-          source .venv/bin/activate
-          uv run pytest
+        run: uv run pytest
