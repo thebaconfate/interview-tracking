@@ -1,0 +1,33 @@
+name: Run tests
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        uses: run |
+          sudo apt update
+          sudo apt install pipx
+          pipx ensurepath
+          source ~/.bashrc
+          python -m pip install --upgrade pip
+          pipx install poetry
+          poetry install
+
+      - name: Run tests
+        run: poetry run pytest
