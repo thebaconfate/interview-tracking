@@ -1,5 +1,5 @@
 from typing import List
-from typer import Option, Typer, echo, echo_via_pager, prompt
+from typer import Option, Typer, echo, prompt
 
 from interview_tracking.graph import WeightedDirectedGraph
 from interview_tracking.persistance import load_data, save_data

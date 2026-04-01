@@ -1,8 +1,7 @@
 from typer import Typer
-from interview_tracking.persistance import *
-from interview_tracking.entry import entry_app
-from interview_tracking.stage import stage_app
-from interview_tracking.types import DEFAULT_APPLICATION
+from .persistance import *
+from .types import DEFAULT_APPLICATION
+from .subcommands import entry_app, stage_app
 
 app = Typer()
 
