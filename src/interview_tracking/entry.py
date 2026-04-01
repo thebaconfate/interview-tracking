@@ -1,5 +1,5 @@
 from typing import List
-from typer import Option, Typer, echo, echo_via_pager
+from typer import Option, Typer, echo, echo_via_pager, prompt
 
 from interview_tracking.graph import WeightedDirectedGraph
 from interview_tracking.persistance import load_data, save_data
@@ -24,16 +24,48 @@ def new_entry(
     Add a new application entry
     """
     data: List[Application] = load_data()
-    data.append({"company": company, "role": role, "history": [init_status]})
+    data.append(
+        {"company": company, "role": role, "history": [init_status], "open": True}
+    )
     save_data(data)
     echo(f"Added entry: {company} - {role}, history: {init_status}")
 
 
 @entry_app.command("list")
 def list_applications():
+    """
+    List all applications, regardless if they're ongoing or not
+    """
     data: Applications = load_data()
     for i, application in enumerate(data):
         echo(f"{i} {application['company']} - {application['role']}")
+
+
+@entry_app.command("list-open")
+def list_ongoing_applications():
+    """
+    List ongoing applications
+    """
+    data: Applications = load_data()
+    for i, application in enumerate(data):
+        if not application["open"]:
+            continue
+        echo(f"{i} {application['company']} - {application['role']}")
+
+
+@entry_app.command("close")
+def update_status():
+    """
+    Update wether an application is ongoing or not
+    """
+    data: Applications = load_data()
+    for i, application in enumerate(data):
+        if application["open"]:
+            echo(f"{i} {application['company']} - {application['role']}")
+    idx = int(prompt("Pick an entry by number"))
+    data[idx]["open"] = False
+    save_data(data)
+    echo(f"Closed application: {data[idx]['company']} - {data[idx]['role']}")
 
 
 @entry_app.command("sankey")

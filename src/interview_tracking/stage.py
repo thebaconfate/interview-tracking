@@ -18,7 +18,8 @@ def progress_application(new_status: str):
         echo("No entries found")
         raise Exit()
     for i, application in enumerate(data):
-        echo(f"{i}: {application['company']} - {application['role']}")
+        if application["open"]:
+            echo(f"{i}: {application['company']} - {application['role']}")
     idx = int(prompt("Pick an entry by number"))
     if 0 <= idx < len(data):
         data[idx]["history"].append(new_status)
@@ -37,10 +38,11 @@ def update_history(new_status: str):
     """
     data: List[Application] = load_data()
     for i, application in enumerate(data):
-        echo(
-            f"{i}: {application['company']} - {application['role']} "
-            + f"{application['history']}"
-        )
+        if application["open"]:
+            echo(
+                f"{i}: {application['company']} - {application['role']} "
+                + f"{application['history']}"
+            )
     idx = int(prompt("Pick an entry by number to update"))
     if 0 <= idx < len(data):
         for i, h in enumerate(data[idx]["history"]):
@@ -67,10 +69,11 @@ def remove_history():
     """
     data: Applications = load_data()
     for i, application in enumerate(data):
-        echo(
-            f"{i}: {application['company']} - {application['role']} "
-            + f"{application['history']}"
-        )
+        if application["open"]:
+            echo(
+                f"{i}: {application['company']} - {application['role']} "
+                + f"{application['history']}"
+            )
     idx = int(prompt("Pick an entry by number to update"))
     if 0 <= idx < len(data):
         for i, h in enumerate(data[idx]["history"]):
