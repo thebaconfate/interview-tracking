@@ -23,4 +23,4 @@ def save_data(data: List[Application]):
     if not file.exists():
         file.parent.mkdir(parents=True, exist_ok=True)
         file.touch(exist_ok=True)
-    file.write_text(json.dumps(data, indent=2))
+    file.write_text(json.dumps(data, indent=4))

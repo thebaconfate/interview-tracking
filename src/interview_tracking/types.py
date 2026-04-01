@@ -5,3 +5,6 @@ class Application(TypedDict):
     company: str
     role: str
     history: List[str]
+
+
+type Applications = List[Application]
