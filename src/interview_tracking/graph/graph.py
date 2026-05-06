@@ -78,18 +78,33 @@ class WeightedDirectedGraph:
         value = []
         link_colors = []
         default_colors = {
-            "Interview 1": "blue",
-            "Offer": "green",
-            "Ghosted": "black",
-            "In progress": "yellow",
-            "Rejected": "red",
+            # Success / Positive (Green)
+            "Offer": "rgba(40, 167, 69, 0.6)",
+            "Awaiting contract": "rgba(40, 167, 69, 0.4)",
+            # Progress / Neutral (Blues & Purples)
+            "Applied": "rgba(108, 117, 125, 0.3)",
+            "Screening": "rgba(23, 162, 184, 0.4)",
+            "Interview": "rgba(0, 123, 255, 0.4)",  # Generic catch-all
+            "Business Case": "rgba(102, 16, 242, 0.4)",
+            "Technical Interview": "rgba(102, 16, 242, 0.4)",
+            "Manager Interview": "rgba(102, 16, 242, 0.4)",
+            "Take home assignment": "rgba(111, 66, 193, 0.4)",
+            # Blocked / Negative (Red & Black)
+            "Rejected": "rgba(220, 53, 69, 0.5)",
+            "Ghosted": "rgba(33, 37, 41, 0.5)",
+            "Stopped": "rgba(108, 117, 125, 0.6)",  # Manual exit
+            "On hold": "rgba(255, 193, 7, 0.5)",  # Yellow
         }
         for src, targets in self.__storage.items():
             for dst, w in targets.items():
                 source.append(nodes_indices[src])
                 target.append(nodes_indices[dst])
                 value.append(w)
-                link_colors.append(default_colors.get(dst, "grey"))
+                name_lower = dst.lower()
+                if "interview" in name_lower or "meeting" in name_lower:
+                    link_colors.append(default_colors.get("Interview", "grey"))
+                else:
+                    link_colors.append(default_colors.get(dst, "grey"))
         return dict(source=source, target=target, value=value, color=link_colors)
 
     def __repr__(self) -> str:
